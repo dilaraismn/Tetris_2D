@@ -507,6 +507,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9e641a11f55924795891e456abb8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tetrominoes:
+  - tetromino: 0
+    tile: {fileID: 11400000, guid: 4b9e4cd58b4bb614ebbee163a14fe189, type: 2}
+  - tetromino: 1
+    tile: {fileID: 11400000, guid: 396390dc6247be44f8596fa238dc02ed, type: 2}
+  - tetromino: 2
+    tile: {fileID: 11400000, guid: 4219735d2f8cb8240a59905d208334fa, type: 2}
+  - tetromino: 3
+    tile: {fileID: 11400000, guid: ec9f11cd19db29748bc710313f73e3e7, type: 2}
+  - tetromino: 4
+    tile: {fileID: 11400000, guid: 5ecf835c375860a43aaa09d390f2d07b, type: 2}
+  - tetromino: 5
+    tile: {fileID: 11400000, guid: 7c4f6603feb844c4cbbb3f4b4b873369, type: 2}
+  - tetromino: 6
+    tile: {fileID: 11400000, guid: 2841206301290f345a2224a2216fc0e2, type: 2}
 --- !u!1 &1855973453
 GameObject:
   m_ObjectHideFlags: 0
