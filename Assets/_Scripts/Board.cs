@@ -45,8 +45,25 @@ public class Board : MonoBehaviour
     private void Update()
     {
         scoreText.text = score.ToString();
+        if (IsWin())
+        {
+            PauseGame.isGamePaused = true;
+            print("yeeyy");   
+        }
     }
 
+    public bool IsWin()
+    {
+        int usedTiles = tilemap.GetUsedTilesCount();
+        
+        if (usedTiles < 1)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    
     public void SpawnPiece()
     {
         int random = Random.Range(0, this.tetrominoes.Length);
