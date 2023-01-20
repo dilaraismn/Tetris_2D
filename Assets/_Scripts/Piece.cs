@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+   [SerializeField] private TMP_Text timeText;
+   
    public Board board { get; private set; }
    public Vector3Int position { get; private set; }
    public Vector3Int[] cells { get; private set; }
@@ -37,6 +40,7 @@ public class Piece : MonoBehaviour
       }
    }
 
+
    private void Update()
    {
       this.board.Clear(this);
@@ -59,6 +63,24 @@ public class Piece : MonoBehaviour
       this.board.Set(this);
    }
 
+   private void FixedUpdate()
+   {
+      DifficultyManagement();
+   }
+
+   private void DifficultyManagement()
+   {
+      float timer = 0.0f;
+      timer += Time.time;
+      int seconds = Convert.ToInt32(timer);
+      timeText.text = "TIME: " + seconds;
+      
+      if (seconds > 9 && ((seconds % 10) == 0))
+      {
+         stepDelay -= 0.002f;
+      }
+   }
+   
    private void Step()
    {
       this.stepTime = Time.time + this.stepDelay;
