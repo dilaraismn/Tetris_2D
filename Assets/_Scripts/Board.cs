@@ -147,11 +147,10 @@ public class Board : MonoBehaviour
                 position = new Vector3Int(col, row, 0);
                 this.tilemap.SetTile(position, above);
             }
-
             row++;
         }
     }
-    
+
     public void GameOver()
     {
         tilemap.ClearAllTiles();
