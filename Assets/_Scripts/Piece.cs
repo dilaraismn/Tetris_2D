@@ -77,6 +77,7 @@ public class Piece : MonoBehaviour
       
       if (seconds > 9 && ((seconds % 10) == 0))
       {
+         if (stepDelay < 0.1) return;
          stepDelay -= 0.002f;
       }
    }
