@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] private TMP_Text scoreText;
     public Tilemap tilemap { get; private set; }
     public TetrominoData[] tetrominoes;
     public Piece activePiece { get; private set; }
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    public int score;
 
     public RectInt Bounds 
     { 
@@ -35,7 +38,13 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        score = 0;
         SpawnPiece();
+    }
+
+    private void Update()
+    {
+        scoreText.text = score.ToString();
     }
 
     public void SpawnPiece()
@@ -93,6 +102,7 @@ public class Board : MonoBehaviour
             if (IsLineFull(row))
             {
                 LineClear(row);
+                score += 100;
             }
             else
             {
@@ -140,5 +150,10 @@ public class Board : MonoBehaviour
 
             row++;
         }
+    }
+    
+    public void GameOver()
+    {
+        tilemap.ClearAllTiles();
     }
 }

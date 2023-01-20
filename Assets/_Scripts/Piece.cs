@@ -7,7 +7,6 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
    [SerializeField] private TMP_Text timeText;
-   
    public Board board { get; private set; }
    public Vector3Int position { get; private set; }
    public Vector3Int[] cells { get; private set; }
@@ -93,6 +92,7 @@ public class Piece : MonoBehaviour
    private void Lock()
    {
       this.board.Set(this);
+      this.board.score += 40;
       this.board.ClearLines();
       this.board.SpawnPiece();
    }
