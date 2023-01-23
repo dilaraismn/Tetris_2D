@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class Board : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private GameObject winScreenUI;
     public Tilemap tilemap { get; private set; }
     public TetrominoData[] tetrominoes;
     public Piece activePiece { get; private set; }
@@ -48,7 +49,9 @@ public class Board : MonoBehaviour
         if (IsWin())
         {
             PauseGame.isGamePaused = true;
-            print("yeeyy");   
+            print("GAME WIN");
+            GameOver();
+            winScreenUI.SetActive(true);
         }
     }
 
