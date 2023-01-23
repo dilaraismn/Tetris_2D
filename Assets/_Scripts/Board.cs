@@ -9,9 +9,10 @@ using Random = UnityEngine.Random;
 public class Board : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private GameObject winScreenUI;
-    public Tilemap tilemap { get; private set; }
+    [SerializeField] private GameObject winScreenUI, failScreenUI;    
     public TetrominoData[] tetrominoes;
+
+    public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     public Vector2Int boardSize = new Vector2Int(10, 20);
@@ -69,18 +70,34 @@ public class Board : MonoBehaviour
     
     public void SpawnPiece()
     {
-        int random = Random.Range(0, this.tetrominoes.Length);
-        TetrominoData data = this.tetrominoes[random];
-        this.activePiece.Initialize(this, spawnPosition, data);
-        Set(this.activePiece);
+        int random = Random.Range(0, tetrominoes.Length);
+        TetrominoData data = tetrominoes[random];
+
+        activePiece.Initialize(this, spawnPosition, data);
+
+        if (IsValidPosition(activePiece, spawnPosition)) 
+        {
+            Set(activePiece);
+        } 
+        else 
+        {
+            GameOver();
+        }
     }
 
+    public void GameOver()
+    {
+        tilemap.ClearAllTiles();
+        failScreenUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
     public void Set(Piece piece)
     {
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
-            this.tilemap.SetTile(tilePosition, piece.data.tile);
+            tilemap.SetTile(tilePosition, piece.data.tile);
         }
     }
     
@@ -89,7 +106,7 @@ public class Board : MonoBehaviour
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
-            this.tilemap.SetTile(tilePosition, null);
+            tilemap.SetTile(tilePosition, null);
         }
     }
 
@@ -112,34 +129,32 @@ public class Board : MonoBehaviour
         return true;
     }
 
+
     public void ClearLines()
     {
-        RectInt bounds = this.Bounds;
+        RectInt bounds = Bounds;
         int row = bounds.yMin;
 
         while (row < bounds.yMax)
         {
-            if (IsLineFull(row))
-            {
+            if (IsLineFull(row)) {
                 LineClear(row);
-                score += 100;
-            }
-            else
-            {
+            } else {
                 row++;
             }
         }
     }
 
-    private bool IsLineFull(int row)
+    public bool IsLineFull(int row)
     {
-        RectInt bounds = this.Bounds;
+        RectInt bounds = Bounds;
 
         for (int col = bounds.xMin; col < bounds.xMax; col++)
         {
             Vector3Int position = new Vector3Int(col, row, 0);
-            
-            if (!this.tilemap.HasTile(position))
+
+            // The line is not full if a tile is missing
+            if (!tilemap.HasTile(position)) 
             {
                 return false;
             }
@@ -147,14 +162,14 @@ public class Board : MonoBehaviour
         return true;
     }
 
-    private void LineClear(int row)
+    public void LineClear(int row)
     {
-        RectInt bounds = this.Bounds;
-        
+        RectInt bounds = Bounds;
+
         for (int col = bounds.xMin; col < bounds.xMax; col++)
         {
             Vector3Int position = new Vector3Int(col, row, 0);
-            this.tilemap.SetTile(position, null);
+            tilemap.SetTile(position, null);
         }
 
         while (row < bounds.yMax)
@@ -162,17 +177,12 @@ public class Board : MonoBehaviour
             for (int col = bounds.xMin; col < bounds.xMax; col++)
             {
                 Vector3Int position = new Vector3Int(col, row + 1, 0);
-                TileBase above = this.tilemap.GetTile(position);
+                TileBase above = tilemap.GetTile(position);
 
                 position = new Vector3Int(col, row, 0);
-                this.tilemap.SetTile(position, above);
+                tilemap.SetTile(position, above);
             }
             row++;
         }
-    }
-
-    public void GameOver()
-    {
-        tilemap.ClearAllTiles();
     }
 }
