@@ -45,13 +45,13 @@ public class Piece : MonoBehaviour
       this.board.Clear(this);
       this.lockTime += Time.deltaTime;
 
-      if (Input.GetKeyDown(KeyCode.A)) Move(Vector2Int.left);
-      
-      else if (Input.GetKeyDown(KeyCode.D)) Move(Vector2Int.right);
-     
-      if (Input.GetKeyDown(KeyCode.S))  Move(Vector2Int.down);
+      if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) Move(Vector2Int.left);
 
-      if (Input.GetKeyDown(KeyCode.Space)) HardDrop();
+      else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) Move(Vector2Int.right);
+     
+      if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))  Move(Vector2Int.down);
+
+      if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightControl)) HardDrop();
 
       if (Input.GetKeyDown(KeyCode.Q)) Rotate(-1);
       
