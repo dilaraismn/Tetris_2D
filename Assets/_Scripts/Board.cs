@@ -13,10 +13,10 @@ public class Board : MonoBehaviour
     
     public TetrominoData[] tetrominoes;
 
-    public Tilemap tilemap { get; private set; }
+    public Tilemap tilemap;
     
-    public Piece activePiece { get; private set; }
-    public Piece nextPiece { get; private set; }
+    public Piece currentPiece;
+    public Piece nextPiece;
     
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     public Vector3Int prevSpawnPosition = new Vector3Int(14, 6, 0);
@@ -35,8 +35,8 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
-        this.tilemap = GetComponentInChildren<Tilemap>();
-        this.activePiece = GetComponentInChildren<Piece>();
+        tilemap = GetComponentInChildren<Tilemap>();
+        currentPiece = GetComponentInChildren<Piece>();
 
         for (int i = 0; i < this.tetrominoes.Length; i++)
         {
@@ -48,6 +48,7 @@ public class Board : MonoBehaviour
     {
         score = 0;
         SpawnPiece();
+        PreviewNextPiece();
     }
 
     private void Update()
@@ -76,21 +77,24 @@ public class Board : MonoBehaviour
     
     public void SpawnPiece()
     {
-        int random = Random.Range(0, tetrominoes.Length);
-        TetrominoData data = tetrominoes[random];
-
-        activePiece.Initialize(this, spawnPosition, data);
-
-        if (IsValidPosition(activePiece, spawnPosition)) 
-        {
-            Set(activePiece);
-        } 
-        else 
-        {
-            GameOver();
-        }
+        currentPiece.gameObject.SetActive(false);
+        currentPiece = nextPiece;
+        currentPiece.transform.position = spawnPosition;
+        currentPiece.gameObject.SetActive(true);
+        int randomTetromino = Random.Range(0, tetrominoes.Length);
+        TetrominoData tetrominoData = tetrominoes[randomTetromino];
+        currentPiece.Initialize(this, spawnPosition, tetrominoData);
     }
 
+    void PreviewNextPiece()
+    {
+        int randomTetromino = Random.Range(0, tetrominoes.Length);
+        TetrominoData tetrominoData = tetrominoes[randomTetromino];
+        nextPiece = Instantiate(currentPiece, prevSpawnPosition, Quaternion.identity);
+        nextPiece.InitializePreview(this, prevSpawnPosition, tetrominoData);
+        nextPiece.gameObject.SetActive(true);
+    }
+    
     public void GameOver()
     {
         tilemap.ClearAllTiles();

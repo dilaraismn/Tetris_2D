@@ -43,6 +43,14 @@ public class Piece : MonoBehaviour
       }
    }
 
+   public void InitializePreview(Board board, Vector3Int piecePosition, TetrominoData data)
+   {
+      this.board = board;
+      this.position = piecePosition;
+      this.data = data;
+      //this.cells = data.cells;
+      this.gameObject.SetActive(false);
+   }
 
    private void Update()
    {
