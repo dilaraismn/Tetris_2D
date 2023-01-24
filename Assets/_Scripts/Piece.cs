@@ -19,6 +19,7 @@ public class Piece : MonoBehaviour
    private float stepTime;
    private float moveTime;
    private float lockTime;
+
    
    [SerializeField] private TMP_Text timeText;
 
@@ -49,7 +50,7 @@ public class Piece : MonoBehaviour
       this.position = piecePosition;
       this.data = data;
       //this.cells = data.cells;
-      this.gameObject.SetActive(false);
+      //this.gameObject.SetActive(false);
    }
 
    private void Update()

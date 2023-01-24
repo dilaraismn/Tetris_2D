@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
+using UnityEditor;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
@@ -25,6 +27,8 @@ public class Board : MonoBehaviour
     public int score;
    
     public GameObject previewPiece;
+
+
 
     public RectInt Bounds 
     { 
@@ -80,23 +84,33 @@ public class Board : MonoBehaviour
     {
         currentPiece.gameObject.SetActive(false);
         currentPiece = nextPiece;
-        currentPiece.transform.position = (Vector3Int)spawnPosition;
+        //currentPiece.transform.position =spawnPosition;
         currentPiece.gameObject.SetActive(true);
         int randomTetromino = Random.Range(0, tetrominoes.Length);
         TetrominoData tetrominoData = tetrominoes[randomTetromino];
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
+        
+        if (IsValidPosition(currentPiece, spawnPosition)) 
+        {
+            Set(currentPiece);
+        } 
+        else 
+        {
+            GameOver();
+        }
         
         PreviewNextPiece();
     }
 
     void PreviewNextPiece()
     {
-        if (previewPiece != null)
-        {
-            Destroy(previewPiece);
-        }
         int randomTetromino = Random.Range(0, tetrominoes.Length);
         TetrominoData tetrominoData = tetrominoes[randomTetromino];
+        
+        GameObject nextPieceGO = nextPiece.gameObject;
+        nextPieceGO.AddComponent<SpriteRenderer>();
+        PrefabUtility.SaveAsPrefabAsset(nextPieceGO, "Assets");
+        
         nextPiece = Instantiate(currentPiece, prevSpawnPosition, Quaternion.identity);
         nextPiece.InitializePreview(this, prevSpawnPosition, tetrominoData);
         nextPiece.gameObject.SetActive(true);
