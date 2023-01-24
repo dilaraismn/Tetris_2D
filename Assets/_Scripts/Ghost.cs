@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,31 +11,16 @@ public class Ghost : MonoBehaviour
     public Vector3Int[] cells { get; private set; }
     public Vector3Int position { get; private set; }
 
-    private Board board;
-    private Piece currentPiece;
-    private Piece ghost;
-    
     private void Awake()
     {
         tilemap = GetComponentInChildren<Tilemap>();
         cells = new Vector3Int[4];
     }
 
-    private void Start()
-    {
-        if (currentPiece == null) return;
-        
-        board = FindObjectOfType<Board>();
-        currentPiece = board.currentPiece;
-        ghost = Instantiate(currentPiece, transform);
-        ghost.enabled = false;
-    }
-
     private void LateUpdate()
     {
-        if (currentPiece == null) return;
         Clear();
-        Copy(currentPiece);
+        Copy();
         Drop();
         Set();
     }
@@ -50,13 +34,10 @@ public class Ghost : MonoBehaviour
         }
     }
 
-    private void Copy(Piece piece)
+    private void Copy()
     {
-        if (currentPiece == null) return;
-        
-        for (int i = 0; i < cells.Length; i++) 
-        {
-            cells[i] = piece.cells[i];
+        for (int i = 0; i < cells.Length; i++) {
+            cells[i] = trackingPiece.cells[i];
         }
     }
 
@@ -79,6 +60,7 @@ public class Ghost : MonoBehaviour
                 break;
             }
         }
+
         mainBoard.Set(trackingPiece);
     }
 
@@ -90,4 +72,5 @@ public class Ghost : MonoBehaviour
             tilemap.SetTile(tilePosition, tile);
         }
     }
+
 }

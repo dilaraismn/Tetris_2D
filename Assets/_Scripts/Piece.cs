@@ -19,7 +19,6 @@ public class Piece : MonoBehaviour
    private float stepTime;
    private float moveTime;
    private float lockTime;
-
    
    [SerializeField] private TMP_Text timeText;
 
@@ -43,19 +42,10 @@ public class Piece : MonoBehaviour
          cells[i] = (Vector3Int)data.cells[i];
       }
    }
-
-   public void InitializePreview(Board board, Vector3Int piecePosition, TetrominoData data)
-   {
-      this.board = board;
-      this.position = piecePosition;
-      this.data = data;
-      //this.cells = data.cells;
-      //this.gameObject.SetActive(false);
-   }
-
+   
    private void Update()
    {
-      //this.board.Clear(this);
+      this.board.Clear(this);
       this.lockTime += Time.deltaTime;
       
       if (Input.GetKeyDown(KeyCode.Q)) Rotate(-1);

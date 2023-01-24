@@ -25,11 +25,7 @@ public class Board : MonoBehaviour
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
-   
-    public GameObject previewPiece;
-
-
-
+    
     public RectInt Bounds 
     { 
         get
@@ -44,9 +40,8 @@ public class Board : MonoBehaviour
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
 
-        for (int i = 0; i < this.tetrominoes.Length; i++)
-        {
-            this.tetrominoes[i].Initialize();
+        for (int i = 0; i < tetrominoes.Length; i++) {
+            tetrominoes[i].Initialize();
         }
     }
 
@@ -82,38 +77,20 @@ public class Board : MonoBehaviour
     
     public void SpawnPiece()
     {
-        currentPiece.gameObject.SetActive(false);
-        currentPiece = nextPiece;
-        //currentPiece.transform.position =spawnPosition;
-        currentPiece.gameObject.SetActive(true);
-        int randomTetromino = Random.Range(0, tetrominoes.Length);
-        TetrominoData tetrominoData = tetrominoes[randomTetromino];
-        currentPiece.Initialize(this, spawnPosition, tetrominoData);
-        
-        if (IsValidPosition(currentPiece, spawnPosition)) 
+        int random = Random.Range(0, tetrominoes.Length);
+        TetrominoData data = tetrominoes[random];
+
+        currentPiece.Initialize(this, spawnPosition, data);
+
+        if (IsValidPosition(currentPiece, spawnPosition))
         {
             Set(currentPiece);
+            score += 40;
         } 
         else 
         {
             GameOver();
         }
-        
-        PreviewNextPiece();
-    }
-
-    void PreviewNextPiece()
-    {
-        int randomTetromino = Random.Range(0, tetrominoes.Length);
-        TetrominoData tetrominoData = tetrominoes[randomTetromino];
-        
-        GameObject nextPieceGO = nextPiece.gameObject;
-        nextPieceGO.AddComponent<SpriteRenderer>();
-        PrefabUtility.SaveAsPrefabAsset(nextPieceGO, "Assets");
-        
-        nextPiece = Instantiate(currentPiece, prevSpawnPosition, Quaternion.identity);
-        nextPiece.InitializePreview(this, prevSpawnPosition, tetrominoData);
-        nextPiece.gameObject.SetActive(true);
     }
     
     public void GameOver()
@@ -134,8 +111,6 @@ public class Board : MonoBehaviour
     
     public void Clear(Piece piece)
     {
-        if (currentPiece == null) return;
-
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
@@ -197,6 +172,7 @@ public class Board : MonoBehaviour
 
     public void LineClear(int row)
     {
+        score += 100;
         RectInt bounds = Bounds;
 
         for (int col = bounds.xMin; col < bounds.xMax; col++)
