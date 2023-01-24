@@ -23,6 +23,8 @@ public class Board : MonoBehaviour
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
+   
+    public GameObject previewPiece;
 
     public RectInt Bounds 
     { 
@@ -84,10 +86,15 @@ public class Board : MonoBehaviour
         int randomTetromino = Random.Range(0, tetrominoes.Length);
         TetrominoData tetrominoData = tetrominoes[randomTetromino];
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
+        PreviewNextPiece();
     }
 
     void PreviewNextPiece()
     {
+        if (previewPiece != null)
+        {
+            Destroy(previewPiece);
+        }
         int randomTetromino = Random.Range(0, tetrominoes.Length);
         TetrominoData tetrominoData = tetrominoes[randomTetromino];
         nextPiece = Instantiate(currentPiece, prevSpawnPosition, Quaternion.identity);

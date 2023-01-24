@@ -24,6 +24,8 @@ public class Ghost : MonoBehaviour
 
     private void Start()
     {
+        if (currentPiece == null) return;
+        
         board = FindObjectOfType<Board>();
         currentPiece = board.currentPiece;
         ghost = Instantiate(currentPiece, transform);
@@ -33,9 +35,6 @@ public class Ghost : MonoBehaviour
     private void LateUpdate()
     {
         Clear();
-
-        if (currentPiece == null) return;
-       
         Copy(currentPiece);
         Drop();
         Set();
@@ -52,6 +51,8 @@ public class Ghost : MonoBehaviour
 
     private void Copy(Piece piece)
     {
+        if (currentPiece == null) return;
+        
         for (int i = 0; i < cells.Length; i++) 
         {
             cells[i] = piece.cells[i];

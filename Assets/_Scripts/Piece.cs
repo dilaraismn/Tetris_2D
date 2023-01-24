@@ -54,7 +54,7 @@ public class Piece : MonoBehaviour
 
    private void Update()
    {
-      this.board.Clear(this);
+      //this.board.Clear(this);
       this.lockTime += Time.deltaTime;
       
       if (Input.GetKeyDown(KeyCode.Q)) Rotate(-1);
