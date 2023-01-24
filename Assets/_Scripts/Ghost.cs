@@ -34,6 +34,7 @@ public class Ghost : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (currentPiece == null) return;
         Clear();
         Copy(currentPiece);
         Drop();

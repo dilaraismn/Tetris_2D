@@ -50,7 +50,6 @@ public class Board : MonoBehaviour
     {
         score = 0;
         SpawnPiece();
-        PreviewNextPiece();
     }
 
     private void Update()
@@ -81,11 +80,12 @@ public class Board : MonoBehaviour
     {
         currentPiece.gameObject.SetActive(false);
         currentPiece = nextPiece;
-        currentPiece.transform.position = spawnPosition;
+        currentPiece.transform.position = (Vector3Int)spawnPosition;
         currentPiece.gameObject.SetActive(true);
         int randomTetromino = Random.Range(0, tetrominoes.Length);
         TetrominoData tetrominoData = tetrominoes[randomTetromino];
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
+        
         PreviewNextPiece();
     }
 
@@ -120,6 +120,8 @@ public class Board : MonoBehaviour
     
     public void Clear(Piece piece)
     {
+        if (currentPiece == null) return;
+
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
