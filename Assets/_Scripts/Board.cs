@@ -10,11 +10,17 @@ public class Board : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject winScreenUI, failScreenUI;    
+    
     public TetrominoData[] tetrominoes;
 
     public Tilemap tilemap { get; private set; }
+    
     public Piece activePiece { get; private set; }
+    public Piece nextPiece { get; private set; }
+    
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
+    public Vector3Int prevSpawnPosition = new Vector3Int(14, 6, 0);
+    
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
 
