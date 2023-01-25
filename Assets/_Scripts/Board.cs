@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
@@ -51,6 +52,7 @@ public class Board : MonoBehaviour
     private void Update()
     {
         scoreText.text = score.ToString();
+        
         if (IsWin())
         {
             PauseGame.isGamePaused = true;
@@ -59,14 +61,15 @@ public class Board : MonoBehaviour
             winScreenUI.SetActive(true);
         }
     }
-    
+
     public bool IsWin()
     {
-        int usedTiles = tilemap.GetUsedTilesCount();
-        
-        if (usedTiles < 1)
+        foreach (Vector3Int position in tilemap.cellBounds.allPositionsWithin)
         {
-            return true;
+            if (!tilemap.HasTile(position)) 
+            {
+                return true;
+            }
         }
         return false;
     }
