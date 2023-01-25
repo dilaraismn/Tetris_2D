@@ -36,8 +36,9 @@ public class PreviewPiece : MonoBehaviour
 
     private void Copy()
     {
-        for (int i = 0; i < cells.Length; i++) {
-            cells[i] = trackingPiece.cells[i];
+        for (int i = 0; i < cells.Length; i++) 
+        {
+            cells[i] = (Vector3Int) mainBoard.nextTetrominoData.cells[i];
         }
     }
 
@@ -46,7 +47,7 @@ public class PreviewPiece : MonoBehaviour
         for (int i = 0; i < cells.Length; i++)
         {
             Vector3Int tilePosition = cells[i] + position;
-            tilemap.SetTile(tilePosition, mainBoard.currentPiece.data.tile);
+            tilemap.SetTile(tilePosition, mainBoard.nextTetrominoData.tile);
         }
     }
 }

@@ -19,6 +19,7 @@ public class Board : MonoBehaviour
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
+    public TetrominoData nextTetrominoData;
     
     public RectInt Bounds 
     { 
@@ -72,6 +73,8 @@ public class Board : MonoBehaviour
     public void SpawnPiece()
     {
         TetrominoData tetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
+        nextTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
+        
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
 
         if (IsValidPosition(currentPiece, spawnPosition))
@@ -152,7 +155,6 @@ public class Board : MonoBehaviour
         {
             Vector3Int position = new Vector3Int(col, row, 0);
 
-            // The line is not full if a tile is missing
             if (!tilemap.HasTile(position)) 
             {
                 return false;
