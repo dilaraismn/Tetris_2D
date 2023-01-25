@@ -19,9 +19,7 @@ public class Board : MonoBehaviour
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
-
-    private GameObject currentPieceGO;
-
+    
     public RectInt Bounds 
     { 
         get
@@ -35,7 +33,6 @@ public class Board : MonoBehaviour
     {
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
-        //currentPieceGO = new GameObject("PiecePreview");
 
         for (int i = 0; i < tetrominoes.Length; i++) 
         {
@@ -60,7 +57,7 @@ public class Board : MonoBehaviour
             winScreenUI.SetActive(true);
         }
     }
-
+    
     public bool IsWin()
     {
         int usedTiles = tilemap.GetUsedTilesCount();
@@ -74,12 +71,9 @@ public class Board : MonoBehaviour
 
     public void SpawnPiece()
     {
-        int random = Random.Range(0, tetrominoes.Length);
-        TetrominoData data = tetrominoes[random];
+        TetrominoData tetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
+        currentPiece.Initialize(this, spawnPosition, tetrominoData);
 
-        currentPiece.Initialize(this, spawnPosition, data);
-
-        //PreviewPiece();
         if (IsValidPosition(currentPiece, spawnPosition))
         {
             Set(currentPiece);
