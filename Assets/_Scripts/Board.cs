@@ -18,7 +18,7 @@ public class Board : MonoBehaviour
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
-    public int score;
+    public int score = 0;
     public TetrominoData nextTetrominoData;
     
     public RectInt Bounds 
@@ -79,7 +79,6 @@ public class Board : MonoBehaviour
         if (IsValidPosition(currentPiece, spawnPosition))
         {
             Set(currentPiece);
-            score += 40;
         } 
         else 
         {
@@ -138,9 +137,12 @@ public class Board : MonoBehaviour
 
         while (row < bounds.yMax)
         {
-            if (IsLineFull(row)) {
+            if (IsLineFull(row)) 
+            {
                 LineClear(row);
-            } else {
+            } 
+            else 
+            {
                 row++;
             }
         }

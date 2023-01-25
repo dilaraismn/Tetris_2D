@@ -113,6 +113,7 @@ public class Piece : MonoBehaviour
    private void Lock()
    {
       board.Set(this);
+      board.score += 40;
       board.ClearLines();
       board.SpawnPiece(board.nextTetrominoData);
    }
