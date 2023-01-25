@@ -10,7 +10,7 @@ public class PreviewPiece : MonoBehaviour
     public Tilemap tilemap { get; private set; }
     public Vector3Int[] cells { get; private set; }
     
-    [SerializeField] private Vector3Int position = new Vector3Int(12, -2, 0);
+    [SerializeField] private Vector3Int position = new Vector3Int(14, -4, 0);
 
     private void Awake()
     {
