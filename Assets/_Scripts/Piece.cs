@@ -17,9 +17,10 @@ public class Piece : MonoBehaviour
    private float stepTime;
    private float moveTime;
    private float lockTime;
+   private float timer;
    
    [SerializeField] private TMP_Text timeText;
-
+   
    public void Initialize(Board board, Vector3Int position, TetrominoData data)
    {
       this.data = data;
@@ -43,7 +44,7 @@ public class Piece : MonoBehaviour
    private void Update()
    {
       this.board.Clear(this);
-      this.lockTime += Time.deltaTime;
+      this.lockTime = 0.5f;
       
       if (Input.GetKeyDown(KeyCode.Q)) Rotate(-1);
       
@@ -85,8 +86,8 @@ public class Piece : MonoBehaviour
 
    private void DifficultyManagement()
    {
-      float timer = 0.0f;
-      timer += Time.time;
+      timer = 0;
+      timer += Time.timeSinceLevelLoad;
       int seconds = Convert.ToInt32(timer);
       timeText.text = "TIME: " + seconds;
       
