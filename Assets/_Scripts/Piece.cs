@@ -42,7 +42,7 @@ public class Piece : MonoBehaviour
          cells[i] = (Vector3Int)data.cells[i];
       }
    }
-   
+
    private void Update()
    {
       this.board.Clear(this);

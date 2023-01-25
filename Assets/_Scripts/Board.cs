@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
-using UnityEditor;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
@@ -25,6 +20,10 @@ public class Board : MonoBehaviour
     
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score;
+
+    private GameObject currentPieceGO;
+    public Vector3Int[] cells { get; private set; }
+
     
     public RectInt Bounds 
     { 
@@ -39,8 +38,10 @@ public class Board : MonoBehaviour
     {
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
+        //currentPieceGO = new GameObject("PiecePreview");
 
-        for (int i = 0; i < tetrominoes.Length; i++) {
+        for (int i = 0; i < tetrominoes.Length; i++) 
+        {
             tetrominoes[i].Initialize();
         }
     }
@@ -73,7 +74,18 @@ public class Board : MonoBehaviour
         }
         return false;
     }
-    
+
+    /*private void PreviewPiece()
+    {
+        cells = new Vector3Int[4];
+        for (int i = 0; i < cells.Length; i++) 
+        {
+            cells[i] = currentPiece.cells[i];
+        }
+
+        currentPieceGO.AddComponent<SpriteRenderer>();
+        Instantiate(currentPieceGO, prevSpawnPosition, Quaternion.identity);
+    }*/
     
     public void SpawnPiece()
     {
@@ -82,6 +94,7 @@ public class Board : MonoBehaviour
 
         currentPiece.Initialize(this, spawnPosition, data);
 
+        //PreviewPiece();
         if (IsValidPosition(currentPiece, spawnPosition))
         {
             Set(currentPiece);
@@ -136,8 +149,7 @@ public class Board : MonoBehaviour
         }
         return true;
     }
-
-
+    
     public void ClearLines()
     {
         RectInt bounds = Bounds;
