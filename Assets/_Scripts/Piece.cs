@@ -114,7 +114,7 @@ public class Piece : MonoBehaviour
    {
       board.Set(this);
       board.ClearLines();
-      board.SpawnPiece();
+      board.SpawnPiece(board.nextTetrominoData);
    }
    
    private void HardDrop()

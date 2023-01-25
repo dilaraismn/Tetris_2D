@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
     {
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
-
+        
         for (int i = 0; i < tetrominoes.Length; i++) 
         {
             tetrominoes[i].Initialize();
@@ -44,7 +44,8 @@ public class Board : MonoBehaviour
     private void Start()
     {
         score = 0;
-        SpawnPiece();
+        TetrominoData initialTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
+        SpawnPiece(initialTetrominoData);
     }
 
     private void Update()
@@ -70,11 +71,9 @@ public class Board : MonoBehaviour
         return false;
     }
 
-    public void SpawnPiece()
+    public void SpawnPiece(TetrominoData tetrominoData)
     {
-        TetrominoData tetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         nextTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
-        
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
 
         if (IsValidPosition(currentPiece, spawnPosition))
