@@ -20,7 +20,6 @@ public class Piece : MonoBehaviour
    
    [SerializeField] private TMP_Text timeText;
 
-   
    public void Initialize(Board board, Vector3Int position, TetrominoData data)
    {
       this.data = data;

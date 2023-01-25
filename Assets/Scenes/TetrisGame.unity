@@ -1208,7 +1208,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 623719756}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1111724555}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Button_Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &623719756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1897,6 +1909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1111724554}
   - component: {fileID: 1111724553}
+  - component: {fileID: 1111724555}
   m_Layer: 0
   m_Name: GameManagement
   m_TagString: Untagged
@@ -1931,6 +1944,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111724555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111724552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff07e43ce58bcf8458a1a6895df5a5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1205695155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2476,6 +2501,9 @@ MonoBehaviour:
   spawnPosition: {x: -1, y: 8, z: 0}
   boardSize: {x: 10, y: 20}
   score: 0
+  nextTetrominoData:
+    tile: {fileID: 0}
+    tetromino: 0
 --- !u!1 &1816727805
 GameObject:
   m_ObjectHideFlags: 0
