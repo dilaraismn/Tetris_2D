@@ -52,26 +52,18 @@ public class Board : MonoBehaviour
     private void Update()
     {
         scoreText.text = score.ToString();
-        
-        if (IsWin())
-        {
-            PauseGame.isGamePaused = true;
-            print("GAME WIN");
-            GameOver();
-            winScreenUI.SetActive(true);
-        }
     }
 
     public bool IsWin()
     {
         foreach (Vector3Int position in tilemap.cellBounds.allPositionsWithin)
         {
-            if (!tilemap.HasTile(position)) 
+            if (tilemap.HasTile(position)) 
             {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void SpawnPiece(TetrominoData tetrominoData)
@@ -189,6 +181,13 @@ public class Board : MonoBehaviour
                 tilemap.SetTile(position, above);
             }
             row++;
+        }
+        
+        if (IsWin())
+        {
+            PauseGame.isGamePaused = true;
+            tilemap.ClearAllTiles();
+            winScreenUI.SetActive(true);
         }
     }
 }
