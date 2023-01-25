@@ -72,5 +72,4 @@ public class Ghost : MonoBehaviour
             tilemap.SetTile(tilePosition, tile);
         }
     }
-
 }
