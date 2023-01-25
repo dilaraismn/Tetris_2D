@@ -186,7 +186,6 @@ public class Board : MonoBehaviour
         if (IsWin())
         {
             PauseGame.isGamePaused = true;
-            tilemap.ClearAllTiles();
             winScreenUI.SetActive(true);
         }
     }
