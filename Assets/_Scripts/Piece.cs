@@ -10,9 +10,9 @@ public class Piece : MonoBehaviour
    public Vector3Int position { get; private set; }
    public int rotationIndex { get; private set; }
 
-   public float stepDelay = 1f;
+   public float stepDelay = 0.3f;
    public float moveDelay = 0.1f;
-   public float lockDelay = 0.5f;
+   public float lockDelay = 0.3f;
 
    private float stepTime;
    private float moveTime;
@@ -61,7 +61,7 @@ public class Piece : MonoBehaviour
 
    private void HandleMoveInputs()
    {
-      if (Input.GetKey(KeyCode.S)|| Input.GetKeyDown(KeyCode.DownArrow))
+      if (Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.DownArrow))
       {
          if (Move(Vector2Int.down)) 
          {
@@ -69,11 +69,11 @@ public class Piece : MonoBehaviour
          }
       }
       
-      if (Input.GetKey(KeyCode.A)|| Input.GetKeyDown(KeyCode.LeftArrow)) 
+      if (Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow)) 
       {
          Move(Vector2Int.left);
       } 
-      else if (Input.GetKey(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) 
+      else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) 
       {
          Move(Vector2Int.right);
       }
