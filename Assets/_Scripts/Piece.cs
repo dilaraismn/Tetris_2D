@@ -91,17 +91,17 @@ public class Piece : MonoBehaviour
    {
       if (UIManager.isEasy)
       {
-         DifficultyManagement(14, 15, 0.001f);
+         DifficultyManagement(24, 25, 0.002f);
          Debug.Log("Easy" + stepDelay);
       }
       else if (UIManager.isMedium)
       {
-         DifficultyManagement(9, 10, 0.002f);
+         DifficultyManagement(14, 15, 0.002f);
          Debug.Log("Medium" + stepDelay);
       }
       else if (UIManager.isHard)
       {
-         DifficultyManagement(9, 5, 0.0005f);
+         DifficultyManagement(9, 5, 0.001f);
          Debug.Log("Hard" + stepDelay);
       }
       else
@@ -116,7 +116,7 @@ public class Piece : MonoBehaviour
    {
       if (seconds > timePeriod && ((seconds % division) == 0))
       {
-         if (stepDelay < 0.1) return;
+         if (stepDelay < 0.2) return;
          stepDelay -= reduction;
       }
    }
