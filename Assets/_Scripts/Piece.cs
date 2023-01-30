@@ -18,6 +18,8 @@ public class Piece : MonoBehaviour
    private float moveTime;
    private float lockTime;
    private float timer;
+
+   private int seconds;
    
    [SerializeField] private TMP_Text timeText;
    
@@ -81,23 +83,52 @@ public class Piece : MonoBehaviour
    
    private void FixedUpdate()
    {
-      DifficultyManagement();
+      Timer();
+      DifficultyCheck();
    }
 
-   private void DifficultyManagement()
+   private void DifficultyCheck()
+   {
+      if (UIManager.isEasy)
+      {
+         DifficultyManagement(14, 15, 0.001f);
+         Debug.Log("Easy" + stepDelay);
+      }
+      else if (UIManager.isMedium)
+      {
+         DifficultyManagement(9, 10, 0.002f);
+         Debug.Log("Medium" + stepDelay);
+      }
+      else if (UIManager.isHard)
+      {
+         DifficultyManagement(9, 5, 0.0005f);
+         Debug.Log("Hard" + stepDelay);
+      }
+      else
+      {
+         UIManager.isEasy = true;
+         UIManager.isMedium = false;
+         UIManager.isHard = false;
+      }
+      
+   }
+   private void DifficultyManagement( int timePeriod, int division, float reduction)
+   {
+      if (seconds > timePeriod && ((seconds % division) == 0))
+      {
+         if (stepDelay < 0.1) return;
+         stepDelay -= reduction;
+      }
+   }
+
+   void Timer()
    {
       timer = 0;
       timer += Time.timeSinceLevelLoad;
-      int seconds = Convert.ToInt32(timer);
+      seconds = Convert.ToInt32(timer);
       timeText.text = "TIME: " + seconds;
-      
-      if (seconds > 9 && ((seconds % 10) == 0))
-      {
-         if (stepDelay < 0.1) return;
-         stepDelay -= 0.001f;
-      }
    }
-   
+
    private void Step()
    {
       stepTime = Time.time + stepDelay;

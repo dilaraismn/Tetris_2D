@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject startUI, inGameUI;
     private AudioSource _audioSource;
     public AudioClip sfx_Button;
-    public static bool isGameStart;
+    public static bool isGameStart, isEasy, isMedium, isHard;
 
     private void Start()
     {
@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
         startUI.SetActive(true);
         inGameUI.SetActive(false);
         _audioSource = GetComponent<AudioSource>();
+        isEasy = false;
+        isMedium = false;
+        isHard = false;
     }
 
     public void Button_Restart()
@@ -31,5 +34,26 @@ public class UIManager : MonoBehaviour
         startUI.SetActive(false);
         inGameUI.SetActive(true);
         _audioSource.PlayOneShot(sfx_Button);
+    }
+
+    public void Button_Easy()
+    {
+        isEasy = true;
+        isMedium = false;
+        isHard = false;
+    }
+
+    public void Button_Medium()
+    {
+        isEasy = false;
+        isMedium = true;
+        isHard = false;
+    }
+
+    public void Button_Hard()
+    {
+        isEasy = false;
+        isMedium = false;
+        isHard = true;
     }
 }
