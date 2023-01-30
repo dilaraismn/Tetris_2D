@@ -114,6 +114,7 @@ public class Piece : MonoBehaviour
    {
       board.Set(this);
       board.score += 40;
+      board.BlockPlacedSFX();
       board.ClearLines();
       board.SpawnPiece(board.nextTetrominoData);
    }

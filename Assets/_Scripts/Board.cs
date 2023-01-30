@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Board : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private GameObject winScreenUI, failScreenUI;    
+    [SerializeField] private GameObject winScreenUI, failScreenUI;   
     
     public TetrominoData[] tetrominoes;
 
@@ -21,7 +21,13 @@ public class Board : MonoBehaviour
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public int score = 0;
     public TetrominoData nextTetrominoData;
-    
+
+    private AudioSource _audioSource;
+    public AudioClip sfx_LineClear;
+    public AudioClip sfx_BlockPlaced;
+    public AudioClip sfx_Win;
+    public AudioClip sfx_Fail;
+
     public RectInt Bounds 
     { 
         get
@@ -35,6 +41,7 @@ public class Board : MonoBehaviour
     {
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
+        _audioSource = GetComponent<AudioSource>();
         
         for (int i = 0; i < tetrominoes.Length; i++) 
         {
@@ -86,6 +93,7 @@ public class Board : MonoBehaviour
         tilemap.ClearAllTiles();
         failScreenUI.SetActive(true);
         Time.timeScale = 0f;
+        _audioSource.PlayOneShot(sfx_Fail);
     }
     
     public void Set(Piece piece)
@@ -162,6 +170,7 @@ public class Board : MonoBehaviour
     public void LineClear(int row)
     {
         score += 100;
+        _audioSource.PlayOneShot(sfx_LineClear);
         RectInt bounds = Bounds;
 
         for (int col = bounds.xMin; col < bounds.xMax; col++)
@@ -187,6 +196,12 @@ public class Board : MonoBehaviour
         {
             PauseGame.isGamePaused = true;
             winScreenUI.SetActive(true);
+            _audioSource.PlayOneShot(sfx_Win);
         }
+    }
+
+    public void BlockPlacedSFX()
+    {
+        _audioSource.PlayOneShot(sfx_BlockPlaced);
     }
 }
