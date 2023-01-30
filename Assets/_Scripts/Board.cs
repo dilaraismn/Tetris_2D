@@ -47,6 +47,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+       _audioSource.Play();
         score = 0;
         TetrominoData initialTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         SpawnPiece(initialTetrominoData);
@@ -72,7 +73,6 @@ public class Board : MonoBehaviour
     public void SpawnPiece(TetrominoData tetrominoData)
     {
         if (UIManager.isGameStart = false) return;
-        
         nextTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
 
@@ -91,6 +91,7 @@ public class Board : MonoBehaviour
         tilemap.ClearAllTiles();
         failScreenUI.SetActive(true);
         Time.timeScale = 0f;
+        _audioSource.Stop();
         _audioSource.PlayOneShot(sfx_Fail);
     }
     
@@ -194,6 +195,7 @@ public class Board : MonoBehaviour
         {
             PauseGame.isGamePaused = true;
             winScreenUI.SetActive(true);
+            _audioSource.Stop();
             _audioSource.PlayOneShot(sfx_Win);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject startUI;
+    [SerializeField] private GameObject startUI, inGameUI;
     private AudioSource _audioSource;
     public AudioClip sfx_Button;
     public static bool isGameStart;
@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     {
         isGameStart = false;
         startUI.SetActive(true);
+        inGameUI.SetActive(false);
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
     {
         isGameStart = true;
         startUI.SetActive(false);
+        inGameUI.SetActive(true);
         _audioSource.PlayOneShot(sfx_Button);
     }
 }

@@ -2316,6 +2316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startUI: {fileID: 1722467347}
+  inGameUI: {fileID: 89240958}
   sfx_Button: {fileID: 8300000, guid: a8dcee43b629797448341bc6cea7592e, type: 3}
 --- !u!82 &1111724556
 AudioSource:
@@ -3137,6 +3138,7 @@ MonoBehaviour:
   sfx_BlockPlaced: {fileID: 8300000, guid: fe49c30f48c69dc429fddd7352f4210a, type: 3}
   sfx_Win: {fileID: 8300000, guid: 76d66616fade0ce4eaf29c0aa704db1b, type: 3}
   sfx_Fail: {fileID: 8300000, guid: 69c83aedd4a447b48b0bcd19ef615c50, type: 3}
+  GameMusic: {fileID: 8300000, guid: 61cb60d759c121d429de2e0f0b1a7543, type: 3}
 --- !u!82 &1725684907
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3147,15 +3149,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 61cb60d759c121d429de2e0f0b1a7543, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 120
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
