@@ -10,17 +10,13 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject winScreenUI, failScreenUI;   
     
     public TetrominoData[] tetrominoes;
-
     public Tilemap tilemap;
-    
     public Piece currentPiece;
-    public Piece nextPiece;
-    
-    public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
-    
-    public Vector2Int boardSize = new Vector2Int(10, 20);
-    public int score = 0;
     public TetrominoData nextTetrominoData;
+    public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
+    public Vector2Int boardSize = new Vector2Int(10, 20);
+    
+    public int score = 0;
 
     private AudioSource _audioSource;
     public AudioClip sfx_LineClear;
@@ -75,6 +71,8 @@ public class Board : MonoBehaviour
 
     public void SpawnPiece(TetrominoData tetrominoData)
     {
+        if (UIManager.isGameStart = false) return;
+        
         nextTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         currentPiece.Initialize(this, spawnPosition, tetrominoData);
 
