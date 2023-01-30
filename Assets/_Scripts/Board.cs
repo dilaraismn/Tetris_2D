@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
@@ -6,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText, highScoreText;
     [SerializeField] private GameObject winScreenUI, failScreenUI;   
     
     public TetrominoData[] tetrominoes;
@@ -24,6 +25,9 @@ public class Board : MonoBehaviour
     public AudioClip sfx_Win;
     public AudioClip sfx_Fail;
 
+    private int highScore;
+    private int finalScore;
+    
     public RectInt Bounds 
     { 
         get
@@ -47,7 +51,8 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-       _audioSource.Play();
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+        _audioSource.Play();
         score = 0;
         TetrominoData initialTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         SpawnPiece(initialTetrominoData);
@@ -93,6 +98,8 @@ public class Board : MonoBehaviour
         Time.timeScale = 0f;
         _audioSource.Stop();
         _audioSource.PlayOneShot(sfx_Fail);
+        finalScore = score;
+        PlayerPrefs.SetInt("FinalScore", finalScore);
     }
     
     public void Set(Piece piece)
@@ -203,5 +210,19 @@ public class Board : MonoBehaviour
     public void BlockPlacedSFX()
     {
         _audioSource.PlayOneShot(sfx_BlockPlaced);
+    }
+
+    private void OnDestroy()
+    {
+        if (finalScore < PlayerPrefs.GetInt("HighScore"))
+        {
+            return;
+        }
+        else
+        {
+            highScore = finalScore;
+            PlayerPrefs.SetInt ("HighScore", highScore);
+            PlayerPrefs.Save();
+        }
     }
 }
