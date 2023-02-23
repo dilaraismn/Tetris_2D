@@ -7,9 +7,9 @@ using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private TMP_Text scoreText, highScoreText;
-    [SerializeField] private GameObject winScreenUI, failScreenUI;   
-    
+    [SerializeField] private GameObject winScreenUI, failScreenUI; 
+    [SerializeField] private TMP_Text[] scoreTexts;
+
     public TetrominoData[] tetrominoes;
     public Tilemap tilemap;
     public Piece currentPiece;
@@ -25,8 +25,9 @@ public class Board : MonoBehaviour
     public AudioClip sfx_Win;
     public AudioClip sfx_Fail;
 
-    private int highScore;
-    private int finalScore;
+    public static Board instance;
+    public int highScore;
+    public int finalScore;
     
     public RectInt Bounds 
     { 
@@ -39,6 +40,8 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+        
         tilemap = GetComponentInChildren<Tilemap>();
         currentPiece = GetComponentInChildren<Piece>();
         _audioSource = GetComponent<AudioSource>();
@@ -51,7 +54,6 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
         _audioSource.Play();
         score = 0;
         TetrominoData initialTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
@@ -60,7 +62,10 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = score.ToString();
+        foreach (TMP_Text text in scoreTexts)
+        {
+            text.text = score.ToString();
+        }
     }
 
     public bool IsWin()
