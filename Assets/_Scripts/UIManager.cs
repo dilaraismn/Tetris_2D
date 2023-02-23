@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
         _previewPiece.enabled = false;
         _ghostBoard.enabled = false;
         _piece.enabled = false;
+        Time.timeScale = 0;
         
         isGameStart = false;
         startUI.SetActive(true);
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
         _piece.enabled = true;
         _previewPiece.enabled = true;
         _ghostBoard.enabled = true;
-
+        Time.timeScale = 1;
     }
 
     public void Button_Easy()

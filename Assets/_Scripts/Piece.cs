@@ -17,12 +17,13 @@ public class Piece : MonoBehaviour
    private float stepTime;
    private float moveTime;
    private float lockTime;
-   private float timer;
+   public float timer;
 
-   private int seconds;
+   public int seconds;
    
-   [SerializeField] private TMP_Text timeText;
+   [SerializeField] private TMP_Text[] timeTexts;
    
+
    public void Initialize(Board board, Vector3Int position, TetrominoData data)
    {
       this.data = data;
@@ -118,12 +119,16 @@ public class Piece : MonoBehaviour
       }
    }
 
-   void Timer()
+   public void Timer()
    {
       timer = 0;
       timer += Time.timeSinceLevelLoad;
       seconds = Convert.ToInt32(timer);
-      timeText.text = "TIME: " + seconds;
+      //timeText.text = "TIME: " + seconds;
+      foreach (TMP_Text timeText in timeTexts)
+      {
+         timeText.text = seconds.ToString();
+      }
    }
 
    private void Step()

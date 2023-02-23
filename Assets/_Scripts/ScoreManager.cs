@@ -5,8 +5,8 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text[] highScoreTexts;
-    private int  playerHighScore;
-    
+    private int  playerHighScore, timeValue;
+
     void Start()
     {
         playerHighScore = Board.instance.highScore;
