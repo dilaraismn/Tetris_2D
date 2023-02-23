@@ -92,17 +92,14 @@ public class Piece : MonoBehaviour
       if (UIManager.isEasy)
       {
          DifficultyManagement(24, 25, 0.002f);
-         Debug.Log("Easy" + stepDelay);
       }
       else if (UIManager.isMedium)
       {
          DifficultyManagement(14, 15, 0.002f);
-         Debug.Log("Medium" + stepDelay);
       }
       else if (UIManager.isHard)
       {
          DifficultyManagement(9, 5, 0.001f);
-         Debug.Log("Hard" + stepDelay);
       }
       else
       {
