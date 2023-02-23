@@ -54,7 +54,10 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        _audioSource.Play();
+        if (!_audioSource.isPlaying)
+        {
+            _audioSource.Play();
+        }
         score = 0;
         TetrominoData initialTetrominoData = tetrominoes[Random.Range(0, tetrominoes.Length)];
         SpawnPiece(initialTetrominoData);
