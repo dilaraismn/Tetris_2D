@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 9d43cf8a036b9cd4b803a633d1c0269f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Acumin Pro
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 63e4dc21678354242b067fa27bfe9576, type: 3}
+  - {fileID: 12800000, guid: 913a988bba63efd4dbb3d625d7ba824d, type: 3}
+  - {fileID: 12800000, guid: 17b51b6bbe9ea8a409ecfe147e6bb4e9, type: 3}
+  - {fileID: 12800000, guid: 07c7ccde3fb8eb24e81ec722a8395ee5, type: 3}
+  - {fileID: 12800000, guid: 16178bf530af6c14883ebdcce01d0fc7, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
